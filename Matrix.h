@@ -14,12 +14,16 @@ public:
   Matrix();
   Matrix(int _w, int _l);
   Matrix(const Matrix& M);
+	Matrix(int size1, int size2, T** arr_);
 	~Matrix();
+
 
 	//
   T GetM(int i, int j);
-	T SetM(int i, int j, T val);
-
+	void SetM(int i, int j, T val);
+	int GetW();
+	int GetL();
+	void SetI(int index1, int index2, T t);
 	//перегрузки
 	Matrix<T> operator=(const Matrix<T>& M);
 	bool operator==(const Matrix<T>& M);
@@ -34,8 +38,37 @@ public:
 	friend istream& operator>>(istream& in, Matrix<T>& mat);
 
 };
+template<class T>
+Matrix<T>::Matrix(int size1, int size2, T** arr_)
+{
+	w = size1;
+	l = size2;
+	matr = new T * [w];
+	for (int i = 0; i < w; i++)
+		matr[i] = new T[l];
+	for (int i = 0; i < w; i++)
+		for (int j = 0; j < l; j++)
+			matr[i][j] = arr_[i][j];
+}
+template<class T>
+int Matrix<T>::GetW()
+{
+	return w;
+}
 
-
+template<class T>
+int Matrix<T>::GetL()
+{
+	return l;
+}
+template<class T>
+void Matrix<T>::SetI(int index1, int index2, T t)
+{
+	for (int i = 0; i < w; i++)
+		for (int j = 0; j < l; j++)
+			if (i == index1 && j == index2)
+				matr[i][j] = t;
+}
 template<class T>
 Matrix<T>::Matrix()
 {
@@ -89,7 +122,7 @@ if ((w >= i) && (l >= j) && (i >= 0) && (j >= 0))
 		return 0;
 }
 template<class T>
-T Matrix<T>::SetM(int i, int j, T val)
+void Matrix<T>::SetM(int i, int j, T val)
 {
 	if ((w >= i) && (l >= j)&&(i>=0)&&(j>=0))
 		matr[i][j] = val;
@@ -115,12 +148,12 @@ Matrix<T> Matrix<T>::operator=(const Matrix<T>& M)
 template <class T>
 bool Matrix<T>::operator==(const Matrix<T>& M)
 {
-	if (w == M.w && l == M.l)
+	if ((*this).w == M.w && (*this).l == M.l)
 	{
 
-		for (int i = 0; i < w; i++)
-			for (int j = 0; j < l; j++)
-				if (matr[i][j] != M.matr[i][j])
+		for (int i = 0; i < (*this).w; i++)
+			for (int j = 0; j < (*this).l; j++)
+				if ((*this).matr[i][j] != M.matr[i][j])
 					return false;
 		return true;
 	}

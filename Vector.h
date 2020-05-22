@@ -5,18 +5,21 @@
 using namespace std;
 
 template<class T>
-class Vector : public Matrix<T>
+class Vector//:public Matrix<T>
 {
 protected:
 	int N;
 	T* arr;
 public:
 	//Констр
-	Vector() :Matrix<T>() {}
+	Vector() {}
 	Vector(int l);
 	Vector(const Vector& V);
 	Vector(int size, const T* arr_);
 	~Vector();
+
+	void SetI(int index, T t);
+	int GetW();
 	//sorts
 	void Bubble_sort();
 	void Insertion_sort();
@@ -35,6 +38,18 @@ public:
 
 
 };
+template<class T>
+int Vector<T>::GetW()
+{
+	return N;
+}
+template<class T>
+void Vector<T>::SetI(int index, T t)
+{
+	for (int i = 0; i < N; i++)
+		if (i == index)
+			arr[i] = t;
+}
 template<class T>
 Vector<T>::Vector(int _N)
 {
@@ -223,13 +238,14 @@ template<class T>
 istream& operator>>(istream& in, Vector<T>& V)
 {
 	cout << "Enter size" << endl << "N = ";
-	in >> V.N;
+	int a;
+	in >> a;
 	T* temp;
-	temp = new T [V.N];
-	for (int i = 0; i < V.N; i++)
+	temp = new T [a];
+	for (int i = 0; i < a; i++)
 		in >> temp[i];
-	Vector<T> V(V.N, temp);
-	V = V;
+	Vector<T> Ve(a, temp);
+	V = Ve;
 	delete[] temp;
 	return in;
 }
