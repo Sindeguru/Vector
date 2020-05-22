@@ -233,7 +233,5 @@ istream& operator>>(istream& in, Vector<T>& V)
 	delete[] temp;
 	return in;
 }
-#pragma once
-#include "Vector.h"
-#include "Matrix.h"
+
 

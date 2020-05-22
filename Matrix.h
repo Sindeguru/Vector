@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 using namespace std;
-#include "Vector.h"
 
 template<class T>
 class Matrix
@@ -240,3 +239,4 @@ istream& operator>>(istream& in, Matrix<T>& mat)
 	delete[] temp;
 	return in;
 }
+#include "Mult.h"
